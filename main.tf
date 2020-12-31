@@ -27,11 +27,11 @@ resource "google_compute_instance" "vm_instance" {
     }
   }
   
-  metadata_startup_script = data.template_file.nginx.rendered
+  metadata_startup_script = "${data.template_file.default.rendered}"
 }
 
-data "template_file" "nginx" {
-  template = "${file("${path.module}/template/install_nginx.tpl")}"
+data "template_file" "default" {
+  template = "${file("${path.module}/template/startup_script.sh")}"
 
   vars = {
     ufw_allow_nginx = "Nginx HTTP"
